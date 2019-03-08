@@ -7,25 +7,19 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/id_bt_read_write"
+        android:id="@+id/id_bt_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="读写权限" />
+        android:text="相机权限" />
 
 
     <Button
-        android:id="@+id/id_bt_location"
+        android:id="@+id/id_bt_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="地理权限" />
+        android:text="一次性获取全部权限" />
 
-    <fragment
-        android:id="@+id/id_fragment"
-        android:tag="MainFragment"
-        android:name="com.cys.permission.MainFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>

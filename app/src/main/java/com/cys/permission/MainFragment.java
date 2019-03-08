@@ -3,60 +3,70 @@ package com.cys.permission;
 import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cys.lib.permission.PermissionCallback;
 import com.cys.lib.permission.SUIPermissioner;
 
-public class MainActivity extends AppCompatActivity {
+public class MainFragment extends Fragment {
 
     private SUIPermissioner mPermissioner;
+    private View mInflateView;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mInflateView = inflater.inflate(R.layout.fragment_main, container, false);
+        return mInflateView;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         mPermissioner = SUIPermissioner.newInstance(this);
-
-        findViewById(R.id.id_bt_read_write).setOnClickListener(new View.OnClickListener() {
+        mInflateView.findViewById(R.id.id_bt_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPermissioner
-                        .permission(
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .permission(Manifest.permission.CAMERA)
                         .callback(new PermissionCallback() {
                             @Override
                             public void onGranted() {
-                                Toast.makeText(MainActivity.this, "读写权限获取成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "相机权限获取成功", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onDenied(String[] permissions) {
-                                Toast.makeText(MainActivity.this, "读写权限获取失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "相机权限获取失败", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .request();
             }
         });
 
-        findViewById(R.id.id_bt_location).setOnClickListener(new View.OnClickListener() {
+        mInflateView.findViewById(R.id.id_bt_all).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPermissioner
-                        .permission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                        .permission(
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.CAMERA)
                         .callback(new PermissionCallback() {
                             @Override
                             public void onGranted() {
-                                Toast.makeText(MainActivity.this, "位置权限获取成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "全部权限获取成功", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onDenied(String[] permissions) {
-                                Toast.makeText(MainActivity.this, "位置权限获取失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "全部权限获取失败", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .request();

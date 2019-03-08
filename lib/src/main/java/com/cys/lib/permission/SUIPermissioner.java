@@ -34,7 +34,7 @@ public class SUIPermissioner {
         this.mDeniedPermissions = new ArrayList<>();
     }
 
-    public static SUIPermissioner newInstance(Context context) {
+    public static SUIPermissioner newInstance(Object context) {
         SUIPermissioner suiPermissioner = new SUIPermissioner(context);
         return suiPermissioner;
     }
